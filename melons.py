@@ -26,16 +26,23 @@ class Melon(object):
         self.image_url = image_url
         self.color = color
         self.seedless = seedless
+        self.qty = 0
+        self.total_price = float(0)
 
-    def price_str(self):
+        price = float(price)
+
+
+    @staticmethod
+    def price_str(price):
         """Return price formatted as string $x.xx"""
 
-        return "${:.2f}".format(self.price)
+        return "${:.2f}".format(price)
+
 
     def __repr__(self):
         """Convenience method to show information about melon in console."""
 
-        return "<Melon: {}, {}, {}>".format(self.melon_id, self.common_name, self.price_str())
+        return "<Melon: {}, {}, {}>".format(self.melon_id, self.common_name, Melon.price_str(self.price))
 
 
 def read_melon_types_from_file(filepath):

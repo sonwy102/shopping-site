@@ -13,7 +13,7 @@
         <div class="col-xs-8 col-sm-6 col-md-4 col-lg-3">
             <div class="well">
                 <h3>Price per melon</h3>
-                <p> {{ display_melon.price_str() }} </p>
+                <p> {{ Melon.price_str(display_melon.price) }} </p>
                 <a class="btn btn-primary" href="/add_to_cart/{{ display_melon.melon_id }}">
                     Add to Cart
                 </a>

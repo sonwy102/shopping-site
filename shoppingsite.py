@@ -14,7 +14,7 @@ import melons
 app = Flask(__name__)
 
 # A secret key is needed to use Flask sessioning features
-app.secret_key = 'this-should-be-something-unguessable'
+app.secret_key = 'loirwotjgqporfw'
 
 # Normally, if you refer to an undefined variable in a Jinja template,
 # Jinja silently ignores this. This makes debugging difficult, so we'll
@@ -40,7 +40,7 @@ def list_melons():
 
     melon_list = melons.get_all()
     return render_template("all_melons.html",
-                           melon_list=melon_list)
+                           melon_list=melon_list, Melon=melons.Melon)
 
 
 @app.route("/melon/<melon_id>")
@@ -53,7 +53,7 @@ def show_melon(melon_id):
     melon = melons.get_by_id(melon_id)
     print(melon)
     return render_template("melon_details.html",
-                           display_melon=melon)
+                           display_melon=melon, Melon=melons.Melon)
 
 
 @app.route("/cart")
@@ -78,7 +78,25 @@ def show_shopping_cart():
     # Make sure your function can also handle the case wherein no cart has
     # been added to the session
 
-    return render_template("cart.html")
+    cart = session['cart']
+    melons_in_cart = []
+    total_cost = 0
+
+    for melon_id in cart:
+        # Access melon object
+        melon = melons.get_by_id(melon_id)
+
+        # Update melon.qty attribute
+        melon.qty = cart[melon_id]
+
+        # Update melon.total_price
+        melon.total_price = melon.price * cart[melon_id]
+        total_cost += melon.total_price
+
+        # Add melon object to cart list
+        melons_in_cart.append(melon)
+
+    return render_template("cart.html", melons=melons_in_cart, total=total_cost, Melon=melons.Melon)
 
 
 @app.route("/add_to_cart/<melon_id>")
@@ -104,7 +122,7 @@ def add_to_cart(melon_id):
         session['cart'] = {}
     
     if melon_id not in session['cart']:
-        session['cart'][melon_id] = 0
+        session['cart'][melon_id] = 1
     else:
         session['cart'][melon_id] += 1
     

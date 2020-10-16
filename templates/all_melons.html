@@ -13,7 +13,7 @@
                       <img src="{{ melon.image_url }}" class="img-circle">
                   </a>
 
-                  <div class="price">{{ melon.price_str() }}</div>
+                  <div class="price">{{ Melon.price_str(melon.price) }}</div>
                   <a class="btn btn-primary" href="/melon/{{ melon.melon_id }}">Details</a>
               </div>
 
