@@ -14,7 +14,7 @@ import melons
 app = Flask(__name__)
 
 # A secret key is needed to use Flask sessioning features
-app.secret_key = 'loirwotjgqporfw'
+app.secret_key = 'jqoiwjefsdf'
 
 # Normally, if you refer to an undefined variable in a Jinja template,
 # Jinja silently ignores this. This makes debugging difficult, so we'll
@@ -78,6 +78,10 @@ def show_shopping_cart():
     # Make sure your function can also handle the case wherein no cart has
     # been added to the session
 
+    if 'cart' not in session:
+        flash("Your cart is empty!")
+        return render_template('empty_cart.html')
+    
     cart = session['cart']
     melons_in_cart = []
     total_cost = 0
