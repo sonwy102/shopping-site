@@ -40,7 +40,9 @@ def read_customer_from_file(filepath):
         
 def get_by_email(email):
     
-    return customers_data[email]
+    if email in customers_data:
+        return customers_data[email]
+    return None
 
 customers_data = read_customer_from_file('customers.txt')
 
