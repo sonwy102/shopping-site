@@ -137,6 +137,7 @@ def process_login():
     if user != None:
         if password == user.password:
             flash('Successfully logged in.')
+            session['email'] = email
             return redirect('/melons')
         flash('Incorrect username and/or password.')
         return redirect('/login')
