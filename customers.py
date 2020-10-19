@@ -8,7 +8,7 @@ class Customer(object):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.password = password
+        self.hashed_password = hash(password)
     
 
     def __repr__(self):
@@ -17,6 +17,15 @@ class Customer(object):
         return "<Customer: {}, {}, {}>".format(self.first_name, 
                                                self.last_name,
                                                self.email)
+
+    def is_correct_password(self, password):
+        """Check if password is correct password for the customer.
+
+        Compare the hash of password to stored hash of the
+        original password.
+        """
+
+        return hash(password) == self.hashed_password
 
 
 def read_customer_from_file(filepath):

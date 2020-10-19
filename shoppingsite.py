@@ -130,20 +130,26 @@ def process_login():
     dictionary, look up the user, and store them in the session.
     """
 
+    # Get user's login credentials from login form
     email = request.form.get('email')
     password = request.form.get('password')
     
+    # Look up if user exists in system
     user = customers.get_by_email(email)
     if user != None:
-        if password == user.password:
+
+        # Verify if user provided correct password
+        if user.is_correct_password(password):
             flash('Successfully logged in.')
             session['email'] = email
             return redirect('/melons')
+
+        # Handle incorrect password
         flash('Incorrect username and/or password.')
         return redirect('/login')
     
+    # Handle users not in system
     flash('Username does not exist.')
-    
     return redirect('/login')
 
 @app.route("/logout")
