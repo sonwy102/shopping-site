@@ -20,6 +20,7 @@ class Customer(object):
 
 
 def read_customer_from_file(filepath):
+    """Read text file of customers and create Customer instances."""
 
     customers = open(filepath)
     customers_data = {}
@@ -39,6 +40,7 @@ def read_customer_from_file(filepath):
     return customers_data
         
 def get_by_email(email):
+    """Search for and return customer object by email"""
     
     if email in customers_data:
         return customers_data[email]
