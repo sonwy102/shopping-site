@@ -143,7 +143,15 @@ def process_login():
         return redirect('/login')
     
     flash('Username does not exist.')
+    
     return redirect('/login')
+
+@app.route("/logout")
+def process_logout():
+    
+    session.pop('email', None)
+
+    return redirect('/melons')
 
 
 @app.route("/checkout")
